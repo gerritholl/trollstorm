@@ -34,4 +34,4 @@ jobs:
       - name: Test with pytest
         shell: bash -l {0}
         run: |
-          pytest --cov=trollstorm trollstorm/test --cov-report=xml
+          pytest --cov=trollstorm trollstorm/tests --cov-report=xml
