@@ -1,0 +1,42 @@
+[project]
+name = "trollstorm"
+project_name = "trollstorm"
+description = "Satellite-based storm research, detection, and nowcasting"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python",
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dynamic = ["version"]
+readme = "README.rst"
+license = "LICENSE"
+keywords = ["nowcasting"]
+packages = ["trollstorm", "trollstorm.tests"]  # replace when setuptools/ppsetuptools supports find
+
+[[project.authors]]
+name = "Gerrit Holl"
+email = "gerrit.holl@dwd.de"
+
+[project.urls]
+repo = "https://github.com/gerritholl/trollstorm"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+doc = ["sphinx-pyproject"]
+
+[build-system]
+requires = ["ppsetuptools", "setuptools>=42", "toml >= 0.10.1", "setuptools_scm[toml]>=3.4"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "trollstorm/version.py"
+
+[tool.pytest.ini_options]
+addopts = "-v --cov trollstorm --cov-report term-missing"
+testpaths = "tests"

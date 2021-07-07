@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+trollstorm/version.py
+doc/source/api/*.rst
