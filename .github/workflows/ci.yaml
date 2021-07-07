@@ -6,8 +6,28 @@ on:
 
 
 jobs:
-  build:
+  lint:
+    name: lint and style checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 flake8-docstrings flake8-debugger flake8-bugbear pytest
+      - name: Install trollstorm
+        run: |
+          pip install -e .
+      - name: Run linting
+        run: |
+          flake8 trollstorm/
 
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,3 +55,9 @@ jobs:
         shell: bash -l {0}
         run: |
           pytest --cov=trollstorm trollstorm/tests --cov-report=xml
+      - name: Upload unittest coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          flags: unittests
+          file: ./coverage.xml
+          env_vars: OS,PYTHON_VERSION,UNSTABLE
